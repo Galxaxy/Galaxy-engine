@@ -1,0 +1,53 @@
+// Load a 3D model from a JSON file (example format: {vertices: [...], indices: [...]})
+function loadModel(modelPath) {
+    fetch(modelPath)
+        .then(response => response.json())
+        .then(modelData => {
+            // Create buffers for the vertices and indices of the model
+            const vertexBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(modelData.vertices), gl.STATIC_DRAW);
+
+            const indexBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(modelData.indices), gl.STATIC_DRAW);
+
+            // Create the model object
+            let model = {
+                vertexBuffer: vertexBuffer,
+                indexBuffer: indexBuffer,
+                vertices: modelData.vertices,
+                indices: modelData.indices
+            };
+            objects.push(model);  // Add the model to the scene
+        })
+        .catch(error => console.error('Error loading model:', error));
+}
+// Modify your render function to draw loaded models
+function drawModel(model) {
+    // Link the vertex data to the shader program
+    const positionLocation = gl.getAttribLocation(shaderProgram, "position");
+    gl.bindBuffer(gl.ARRAY_BUFFER, model.vertexBuffer);
+    gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(positionLocation);
+
+    // Draw the model using the index buffer
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, model.indexBuffer);
+    gl.drawElements(gl.TRIANGLES, model.indices.length, gl.UNSIGNED_SHORT, 0);
+}
+function render() {
+    updateCamera();  // Update camera position based on user input
+
+    gl.clear(gl.COLOR_BUFFER_BIT);  // Clear previous frame
+
+    // Draw all objects including models
+    objects.forEach(object => {
+        if (object.vertices && object.indices) {
+            drawModel(object);  // If it's a model, draw it
+        } else {
+            drawCube(object.x, object.y, object.z, object.size);  // Draw cubes if not a model
+        }
+    });
+
+    requestAnimationFrame(render);  // Keep rendering the scene
+}

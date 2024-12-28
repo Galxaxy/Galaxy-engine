@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Map Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>3D Map Builder</h1>
+    <p>Build maps, animate characters, and create amazing visual effects!</p>
+    
+    <!-- Map Viewer -->
+    <div id="scene-container"></div>
+    
+    <!-- Toolbar for the editor -->
+    <div id="toolbar">
+        <button id="add-block">Add Block</button>
+        <button id="add-character">Add Character</button>
+        <button id="animate">Animate</button>
+        <button id="add-vfx">Add VFX</button>
+        <button id="export">Export Map</button>
+    </div>
+    
+    <!-- Main Script -->
+    <script src="script.js"></script>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.4.0/gl-matrix.js"></script>
+<button id="export">Export Map</button>
+<button id="import">Import Map</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.4.0/gl-matrix.js"></script>

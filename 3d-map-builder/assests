@@ -1,0 +1,17 @@
+assets/
+├── models/        # 3D models (e.g., characters, objects)
+├── textures/      # Textures for blocks, characters, etc.
+├── animations/    # Animation files (e.g., JSON, keyframes)
+├── sounds/        # Sound effects (VFX, character sounds)
+└── maps/          # Predefined or saved map files (JSON, etc.)
+assets/
+├── models/
+│   └── block.obj
+├── textures/
+│   └── block-texture.png
+├── animations/
+│   └── character-animation.json
+├── sounds/
+│   └── explosion-sound.mp3
+└── maps/
+    └── map1.json
